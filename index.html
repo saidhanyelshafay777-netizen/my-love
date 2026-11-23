@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Little Universe ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #08020d;
+    color: white;
+    font-family: Georgia, serif;
+    overflow: hidden;
+}
+
+/* ================= INTRO ================= */
+
+#intro {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background:
+        radial-gradient(circle at center, #45102f, #17051e 55%, #05010a);
+    transition: opacity 1.3s, visibility 1.3s;
+}
+
+#intro.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.intro-title {
+    font-size: clamp(27px, 5vw, 48px);
+    color: #ffb4df;
+    text-shadow: 0 0 20px #ff168e;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    color: #f5b5d8;
+    margin-bottom: 35px;
+    font-size: 15px;
+}
+
+/* Cute animated couple */
+
+.couple {
+    position: relative;
+    width: 290px;
+    height: 230px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.person {
+    position: relative;
+    width: 105px;
+    height: 165px;
+    animation: bob 2s ease-in-out infinite;
+}
+
+.person.second {
+    animation-delay: .4s;
+}
+
+.head {
+    position: absolute;
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    top: 0;
+    left: 11px;
+    background: #ffd4bd;
+    box-shadow: 0 0 20px #ff9acb55;
+    z-index: 2;
+}
+
+.hair {
+    position: absolute;
+    width: 87px;
+    height: 42px;
+    top: -3px;
+    left: 8px;
+    border-radius: 50% 50% 25% 25%;
+    background: #382039;
+    z-index: 3;
+}
+
+.second .hair {
+    background: #6b294e;
+}
+
+.eye {
+    position: absolute;
+    top: 37px;
+    width: 6px;
+    height: 9px;
+    border-radius: 50%;
+    background: #382039;
+    z-index: 4;
+}
+
+.eye.left { left: 29px; }
+.eye.right { right: 29px; }
+
+.smile {
+    position: absolute;
+    left: 33px;
+    top: 52px;
+    width: 17px;
+    height: 9px;
+    border-bottom: 2px solid #a64d68;
+    border-radius: 50%;
+    z-index: 4;
+}
+
+.body-person {
+    position: absolute;
+    top: 75px;
+    left: 12px;
+    width: 80px;
+    height: 90px;
+    border-radius: 25px 25px 12px 12px;
+    background: #8c3474;
+}
+
+.second .body-person {
+    background: #e56da8;
+}
+
+.person::after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 15px;
+    background: #ffd4bd;
+    top: 100px;
+    right: -7px;
+    border-radius: 20px;
+    transform: rotate(-35deg);
+    z-index: 5;
+}
+
+.second::after {
+    left: -7px;
+    transform: rotate(35deg);
+}
+
+@keyframes bob {
+    0%,100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-12px) rotate(3deg); }
+}
+
+.love-heart {
+    position: absolute;
+    color: #ff5eac;
+    font-size: 30px;
+    animation: heartFloat 2.5s ease-in-out infinite;
+    text-shadow: 0 0 15px #ff168e;
+}
+
+.love-heart.one {
+    top: 10px;
+    left: 15px;
+}
+
+.love-heart.two {
+    top: 30px;
+    right: 15px;
+    animation-delay: .7s;
+}
+
+.love-heart.three {
+    top: -5px;
+    left: 130px;
+    animation-delay: 1.2s;
+}
+
+@keyframes heartFloat {
+    0%,100% {
+        transform: translateY(0) scale(.8);
+        opacity: .5;
+    }
+    50% {
+        transform: translateY(-20px) scale(1.2);
+        opacity: 1;
+    }
+}
+
+/* Music selection */
+
+.music-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0 22px;
+}
+
+.music-label {
+    color: #ffc4e5;
+    font-size: 14px;
+}
+
+#musicFile {
+    display: none;
+}
+
+.choose-music {
+    padding: 11px 22px;
+    border: 1px solid #ff8ac8;
+    border-radius: 30px;
+    color: white;
+    background: #8b2868;
+    cursor: pointer;
+    box-shadow: 0 0 15px #ff168e55;
+}
+
+#musicName {
+    font-size: 12px;
+    color: #ffb5db;
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.enter-btn {
+    padding: 14px 45px;
+    border: none;
+    border-radius: 35px;
+    color: #420b2d;
+    background: linear-gradient(90deg, #ffb5dc, #ff65b1);
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 25px #ff168e88;
+    transition: .3s;
+}
+
+.enter-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px #ff168e;
+}
+
+/* ================= GALAXY ================= */
+
+#scene {
+    width: 100vw;
+    height: 100vh;
+}
+
+#galaxyTitle {
+    position: fixed;
+    top: 25px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 5;
+    pointer-events: none;
+    color: #ffb5df;
+    text-shadow: 0 0 18px #ff168e;
+}
+
+#galaxyTitle h1 {
+    font-size: clamp(24px, 5vw, 45px);
+}
+
+#galaxyTitle p {
+    margin-top: 8px;
+}
+
+#loveMessage {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffd4ed;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 0 0 15px #ff168e;
+    z-index: 5;
+    white-space: nowrap;
+    animation: glow 2s infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes glow {
+    from { opacity: .65; }
+    to { opacity: 1; text-shadow: 0 0 30px #ff168e; }
+}
+
+#musicControl {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    padding: 10px 16px;
+    border-radius: 25px;
+    border: 1px solid #ff8ac8;
+    color: white;
+    background: #6c174e;
+    cursor: pointer;
+}
+
+@media(max-width:600px) {
+    #loveMessage {
+        font-size: 14px;
+    }
+
+    .couple {
+        transform: scale(.85);
+        margin-bottom: 5px;
+    }
+}
+</style>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+
+<body>
+
+<!-- INTRO SCREEN -->
+
+<section id="intro">
+
+    <h1 class="intro-title">Our Little Love Story</h1>
+
+    <p class="subtitle">
+        Every love story is beautiful, but ours is my favorite ❤️
+    </p>
+
+    <div class="couple">
+
+        <span class="love-heart one">♥</span>
+        <span class="love-heart two">♥</span>
+        <span class="love-heart three">♥</span>
+
+        <div class="person">
+            <div class="hair"></div>
+            <div class="head">
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+                <div class="smile"></div>
+            </div>
+            <div class="body-person"></div>
+        </div>
+
+        <div class="person second">
+            <div class="hair"></div>
+            <div class="head">
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+                <div class="smile"></div>
+            </div>
+            <div class="body-person"></div>
+        </div>
+
+    </div>
+
+    <div class="music-box">
+
+        <p class="music-label">
+            Choose a song for our universe 🎵
+        </p>
+
+        <label for="musicFile" class="choose-music">
+            Select Your Music
+        </label>
+
+        <input
+            type="file"
+            id="musicFile"
+            accept="audio/*"
+        >
+
+        <p id="musicName">No song selected</p>
+
+    </div>
+
+    <button class="enter-btn" id="enterBtn">
+        Enter Our Universe ✨
+    </button>
+
+</section>
+
+<!-- GALAXY SCREEN -->
+
+<div id="scene"></div>
+
+<div id="galaxyTitle">
+    <h1>Our Beautiful Universe</h1>
+    <p>Millions of stars, one special love ✦</p>
+</div>
+
+<div id="loveMessage">
+    I LOVE YOU ♥ FOREVER AND ALWAYS ♥
+</div>
+
+<button id="musicControl">Pause Music ♪</button>
+
+<audio id="music" loop></audio>
+
+<script type="module">
+
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+/* ================= MUSIC ================= */
+
+const music = document.getElementById('music');
+const musicFile = document.getElementById('musicFile');
+const musicName = document.getElementById('musicName');
+
+let selectedMusic = false;
+
+musicFile.addEventListener('change', function() {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    if (music.src.startsWith('blob:')) {
+        URL.revokeObjectURL(music.src);
+    }
+
+    music.src = URL.createObjectURL(file);
+    musicName.textContent = file.name;
+    selectedMusic = true;
+});
+
+document.getElementById('enterBtn').addEventListener('click', async () => {
+
+    document.getElementById('intro').classList.add('hide');
+
+    if (selectedMusic) {
+        try {
+            await music.play();
+        } catch (error) {
+            console.log('Music could not start:', error);
+        }
+    }
+
+});
+
+document.getElementById('musicControl').addEventListener('click', () => {
+
+    if (!selectedMusic) {
+        alert('Please select a song first!');
+        return;
+    }
+
+    if (music.paused) {
+        music.play();
+        document.getElementById('musicControl').textContent = 'Pause Music ♪';
+    } else {
+        music.pause();
+        document.getElementById('musicControl').textContent = 'Play Music ♪';
+    }
+
+});
+
+/* ================= THREE JS ================= */
+
+const scene = new THREE.Scene();
+
+scene.background = new THREE.Color(0x030008);
+scene.fog = new THREE.FogExp2(0x030008, 0.012);
+
+const camera = new THREE.PerspectiveCamera(
+    55,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+);
+
+camera.position.set(0, 15, 28);
+
+const renderer = new THREE.WebGLRenderer({
+    antialias: true
+});
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+document.getElementById('scene').appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+
+controls.enableDamping = true;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 0.4;
+controls.minDistance = 12;
+controls.maxDistance = 50;
+
+scene.add(new THREE.AmbientLight(0xffffff, 1));
+
+const light = new THREE.PointLight(0xff1493, 5, 50);
+light.position.set(0, 5, 0);
+scene.add(light);
+
+/* ================= GALAXY ================= */
+
+const galaxy = new THREE.Group();
+scene.add(galaxy);
+
+const count = 18000;
+
+const positions = new Float32Array(count * 3);
+const colors = new Float32Array(count * 3);
+
+const pink = new THREE.Color(0xff1493);
+const purple = new THREE.Color(0x8a2be2);
+const white = new THREE.Color(0xffd6ed);
+
+for (let i = 0; i < count; i++) {
+
+    const radius = Math.random() * 12;
+    const arm = i % 5;
+
+    const angle =
+        arm * Math.PI * 2 / 5 +
+        radius * 0.75 +
+        (Math.random() - 0.5) * 0.8;
+
+    const spread = (Math.random() - 0.5) * 1.2;
+
+    positions[i * 3] =
+        Math.cos(angle) * radius +
+        Math.cos(angle + Math.PI / 2) * spread;
+
+    positions[i * 3 + 1] =
+        (Math.random() - 0.5) * 0.5;
+
+    positions[i * 3 + 2] =
+        Math.sin(angle) * radius +
+        Math.sin(angle + Math.PI / 2) * spread;
+
+    const color = pink.clone();
+
+    if (Math.random() > 0.5) {
+        color.lerp(purple, Math.random() * 0.7);
+    } else {
+        color.lerp(white, Math.random() * 0.6);
+    }
+
+    colors[i * 3] = color.r;
+    colors[i * 3 + 1] = color.g;
+    colors[i * 3 + 2] = color.b;
+}
+
+const galaxyGeometry = new THREE.BufferGeometry();
+
+galaxyGeometry.setAttribute(
+    'position',
+    new THREE.BufferAttribute(positions, 3)
+);
+
+galaxyGeometry.setAttribute(
+    'color',
+    new THREE.BufferAttribute(colors, 3)
+);
+
+const galaxyMaterial = new THREE.PointsMaterial({
+    size: 0.09,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.95,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+});
+
+const galaxyParticles = new THREE.Points(
+    galaxyGeometry,
+    galaxyMaterial
+);
+
+galaxy.add(galaxyParticles);
+
+/* ================= HEART ================= */
+
+const heartPositions = [];
+const heartColors = [];
+
+for (let i = 0; i < 3500; i++) {
+
+    const t = Math.random() * Math.PI * 2;
+    const fill = Math.sqrt(Math.random());
+
+    const x = 16 * Math.pow(Math.sin(t), 3);
+
+    const y =
+        13 * Math.cos(t) -
+        5 * Math.cos(2 * t) -
+        2 * Math.cos(3 * t) -
+        Math.cos(4 * t);
+
+    heartPositions.push(
+        x * 0.12 * fill,
+        5 + y * 0.12 * fill,
+        (Math.random() - 0.5) * 0.4
+    );
+
+    const color = new THREE.Color(0xff3da5);
+
+    color.lerp(
+        new THREE.Color(0xffd6ed),
+        Math.random() * 0.6
+    );
+
+    heartColors.push(color.r, color.g, color.b);
+}
+
+const heartGeometry = new THREE.BufferGeometry();
+
+heartGeometry.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(heartPositions, 3)
+);
+
+heartGeometry.setAttribute(
+    'color',
+    new THREE.Float32BufferAttribute(heartColors, 3)
+);
+
+const heart = new THREE.Points(
+    heartGeometry,
+    new THREE.PointsMaterial({
+        size: 0.075,
+        vertexColors: true,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+    })
+);
+
+galaxy.add(heart);
+
+/* ================= RINGS ================= */
+
+const rings = [];
+
+for (let i = 0; i < 4; i++) {
+
+    const geometry = new THREE.TorusGeometry(
+        3 + i * 2.3,
+        0.025,
+        8,
+        180
+    );
+
+    const material = new THREE.MeshBasicMaterial({
+        color: i % 2 === 0 ? 0xff168e : 0xb42aff,
+        transparent: true,
+        opacity: 0.55
+    });
+
+    const ring = new THREE.Mesh(geometry, material);
+
+    ring.rotation.x = Math.PI / 2;
+    ring.position.y = -0.3;
+
+    galaxy.add(ring);
+    rings.push(ring);
+}
+
+/* ================= STARS ================= */
+
+const starPositions = [];
+
+for (let i = 0; i < 3000; i++) {
+
+    starPositions.push(
+        (Math.random() - 0.5) * 100,
+        (Math.random() - 0.5) * 70,
+        (Math.random() - 0.5) * 100
+    );
+}
+
+const starGeometry = new THREE.BufferGeometry();
+
+starGeometry.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(starPositions, 3)
+);
+
+const stars = new THREE.Points(
+    starGeometry,
+    new THREE.PointsMaterial({
+        color: 0xffc6e8,
+        size: 0.07,
+        transparent: true,
+        opacity: 0.8
+    })
+);
+
+scene.add(stars);
+
+/* ================= I LOVE YOU TEXT ================= */
+
+function createText(text) {
+
+    const canvas = document.createElement('canvas');
+
+    canvas.width = 512;
+    canvas.height = 128;
+
+    const ctx = canvas.getContext('2d');
+
+    ctx.font = 'bold 48px Georgia';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#ff9bd5';
+    ctx.shadowColor = '#ff1493';
+    ctx.shadowBlur = 25;
+
+    ctx.fillText(text, 256, 75);
+
+    const texture = new THREE.CanvasTexture(canvas);
+
+    const sprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: texture,
+            transparent: true,
+            depthWrite: false
+        })
+    );
+
+    sprite.scale.set(5, 1.25, 1);
+
+    return sprite;
+}
+
+const words = [
+    'I LOVE YOU',
+    'FOREVER LOVE',
+    'YOU ARE MY WORLD',
+    'MY ONLY STAR',
+    'LOVE YOU ALWAYS',
+    'YOU ARE SPECIAL',
+    'MY HEART IS YOURS'
+];
+
+const floatingWords = [];
+
+words.forEach((word, i) => {
+
+    const text = createText(word);
+
+    const angle = i / words.length * Math.PI * 2;
+
+    text.position.set(
+        Math.cos(angle) * 10,
+        0.3,
+        Math.sin(angle) * 10
+    );
+
+    galaxy.add(text);
+
+    floatingWords.push({
+        object: text,
+        angle: angle
+    });
+});
+
+/* ================= FLOATING HEARTS ================= */
+
+const floatingHearts = [];
+
+function createFloatingHeart() {
+
+    const canvas = document.createElement('canvas');
+
+    canvas.width = 128;
+    canvas.height = 128;
+
+    const ctx = canvas.getContext('2d');
+
+    ctx.font = '100px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#ff269c';
+    ctx.shadowColor = '#ff1493';
+    ctx.shadowBlur = 25;
+
+    ctx.fillText('♥', 64, 95);
+
+    const texture = new THREE.CanvasTexture(canvas);
+
+    const sprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: texture,
+            transparent: true
+        })
+    );
+
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 8 + Math.random() * 7;
+
+    sprite.position.set(
+        Math.cos(angle) * radius,
+        Math.random() * 4,
+        Math.sin(angle) * radius
+    );
+
+    sprite.scale.set(0.7, 0.7, 1);
+
+    scene.add(sprite);
+
+    floatingHearts.push({
+        object: sprite,
+        angle: angle,
+        radius: radius,
+        speed: 0.2 + Math.random() * 0.4
+    });
+}
+
+for (let i = 0; i < 30; i++) {
+    createFloatingHeart();
+}
+
+/* ================= ANIMATION ================= */
+
+const clock = new THREE.Clock();
+
+function animate() {
+
+    requestAnimationFrame(animate);
+
+    const time = clock.getElapsedTime();
+
+    galaxyParticles.rotation.y = time * 0.08;
+
+    heart.rotation.y = Math.sin(time) * 0.15;
+    heart.position.y = Math.sin(time * 1.5) * 0.15;
+
+    rings.forEach((ring, i) => {
+        ring.rotation.z = time * (0.08 + i * 0.02);
+    });
+
+    floatingWords.forEach((item, i) => {
+
+        item.object.position.y =
+            0.4 + Math.sin(time * 1.5 + i) * 0.3;
+
+        item.object.position.x =
+            Math.cos(item.angle + time * 0.04) * 10;
+
+        item.object.position.z =
+            Math.sin(item.angle + time * 0.04) * 10;
+    });
+
+    floatingHearts.forEach(item => {
+
+        item.angle += item.speed * 0.003;
+
+        item.object.position.x =
+            Math.cos(item.angle) * item.radius;
+
+        item.object.position.z =
+            Math.sin(item.angle) * item.radius;
+
+        item.object.position.y +=
+            Math.sin(time + item.angle) * 0.002;
+    });
+
+    stars.rotation.y = time * 0.005;
+
+    controls.update();
+
+    renderer.render(scene, camera);
+}
+
+animate();
+
+/* ================= RESIZE ================= */
+
+window.addEventListener('resize', () => {
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(
+        window.innerWidth,
+        window.innerHeight
+    );
+
+});
+
+</script>
+
+</body>
+</html>
